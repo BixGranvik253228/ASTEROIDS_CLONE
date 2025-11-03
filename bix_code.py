@@ -9,8 +9,8 @@ class myWindow(arcade.Window):
         print(delta_time)
 
     def on_draw(self):
-        arcade.start_render()
-        arcade.draw_circle_filled(100, 100, 50, arcade.color.AERO_BLUE)
+        self.clear()
+        arcade.draw_circle_filled(100, 100, 50, arcade.color.RED)
 
         
 
