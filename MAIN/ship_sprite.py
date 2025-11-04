@@ -20,7 +20,9 @@ class window(arcade.Window):
 
         # ship_path = Path('../SPRITES/ship.png')
         # self.ship = arcade.Sprite("./ship.png")
-        self.ship_test = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
+        # self.ship_test = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
+        ship_path = (Path(__file__).parent/'ship.png').resolve()
+        self.ship = arcade.Sprite(ship_path)
         
         
         
@@ -40,7 +42,7 @@ class window(arcade.Window):
         # )
 
         # self.ship.draw()
-        self.ship_test.draw()
+        self.ship.draw()
 
 
 
