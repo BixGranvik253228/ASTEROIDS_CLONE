@@ -10,7 +10,7 @@ class GameWindow(arcade.Window):
         self.set_location(x, y)
 
     def on_update(self, delta_time):
-        print(delta_time)
+        print('')        
     
     def on_draw(self):
         self.clear()
