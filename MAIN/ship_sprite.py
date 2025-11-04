@@ -2,10 +2,6 @@ import arcade
 import math
 from pathlib import Path
 
-fHand = open('../UNUSED/testPythonEnv.ipynb')
-for i in fHand:
-    print(i)
-
 class window(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title, update_rate=1/60)
@@ -23,7 +19,8 @@ class window(arcade.Window):
         self.ship_acceleration = 1.0
 
         # ship_path = Path('../SPRITES/ship.png')
-        # self.ship = arcade.Sprite('./ship.png')
+        # self.ship = arcade.Sprite("./ship.png")
+        self.ship_test = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
         
         
         
@@ -43,6 +40,7 @@ class window(arcade.Window):
         # )
 
         # self.ship.draw()
+        self.ship_test.draw()
 
 
 
