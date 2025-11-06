@@ -14,14 +14,14 @@ class window(arcade.Window):
         self.ship_x = self.width / 2
         self.ship_y = self.height / 2
         self.thrust_mode = False
-        self.rotate_speed = 4
-        self.ship_acceleration = 1.1
+        self.rotate_speed = 360
+        self.ship_acceleration = 10
 
         # ship_path = Path('../SPRITES/ship.png')
         # self.ship = arcade.Sprite("./ship.png")
         # self.ship_test = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
         # ship_path = str(Path(__file__).parent/'ship.png') # I don't understand this
-        ship_path = "ASTEROIDS_CLONE/SPRITES/ship.png"
+        ship_path = "ASTEROIDS_CLONE/SPRITES/ship_right.png"
         self.ship = arcade.Sprite(ship_path)
 
 
@@ -37,13 +37,14 @@ class window(arcade.Window):
         self.ship.center_y = self.height / 2
         self.ship.angle = 0
         self.ship.speed = 10
-        self.ship.acceleration = 100
+        self.ship.acceleration = 5
         self.go_right = False
         self.go_left = False
         self.go_up = False
         self.go_down = False
         self.ship.change_x = 0
         self.ship.change_y = 0
+        self.ship.scale = (0.5, 0.5)
         
         # self.asteroids = arcade.SpriteList()
         # self.asteroids.append(self.big_asteroid)
@@ -91,20 +92,36 @@ class window(arcade.Window):
     def on_update(self, delta_time):
         if self.go_left == True:
             # self.ship.center_x -= self.ship.acceleration * delta_time
-            self.ship.turn_left(self.rotate_speed)
+            # self.ship.turn_left(self.rotate_speed)
+            self.ship.angle -= self.rotate_speed * delta_time
         if self.go_right == True:
             # self.ship.center_x += self.ship.acceleration * delta_time
-            self.ship.turn_right(self.rotate_speed)
+            # self.ship.turn_right(self.rotate_speed)
+            self.ship.angle += self.rotate_speed * delta_time
         if self.go_up == True:
             # self.ship.center_y += self.ship.acceleration * delta_time
-            self.ship.strafe(self.ship.speed)
+            # self.ship.strafe(self.ship.speed)
+            # self.ship.center_y += math.sin(math.radians(self.ship.angle)) * self.ship.speed * delta_time
+            
+            # self.ship.change_x += math.cos(math.radians(self.ship.angle)) * self.ship.speed * delta_time
+            self.ship.change_x += math.cos(math.radians(self.ship.angle)) * self.ship.acceleration * delta_time
+            self.ship.change_y -= math.sin(math.radians(self.ship.angle)) * self.ship.acceleration * delta_time
+
         if self.go_down == True:
             # self.ship.center_y -= self.ship.acceleration * delta_time
             pass
-        
+
+
+
+
+        # self.ship.speed *= 0.99
+        # self.ship.change_x *= 0.99
+        # self.ship.change_y *= 0.99
+
         self.sprites.update()
         # ASTEROIDS_CLONE/SPRITES/ship.png
         # /Users/uni/Documents/ADSAI_HUB/ASTEROIDS_CLONE/SPRITES/ship.png
+
 
 
     def on_key_press(self, key, modifiers):
