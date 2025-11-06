@@ -14,15 +14,14 @@ class window(arcade.Window):
         self.ship_x = self.width / 2
         self.ship_y = self.height / 2
         self.thrust_mode = False
-        self.go_right = False
-        self.go_left = False
         self.rotate_speed = 4
         self.ship_acceleration = 1.1
 
         # ship_path = Path('../SPRITES/ship.png')
         # self.ship = arcade.Sprite("./ship.png")
         # self.ship_test = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
-        ship_path = str(Path(__file__).parent/'ship.png') # I don't understand this
+        # ship_path = str(Path(__file__).parent/'ship.png') # I don't understand this
+        ship_path = "ASTEROIDS_CLONE/SPRITES/ship.png"
         self.ship = arcade.Sprite(ship_path)
 
 
@@ -39,11 +38,12 @@ class window(arcade.Window):
         self.ship.angle = 0
         self.ship.speed = 10
         self.ship.acceleration = 100
-        self.ship.go_right = False
-        self.ship.go_left = False
-        self.ship.go_up = False
-        self.ship.go_down = False
-
+        self.go_right = False
+        self.go_left = False
+        self.go_up = False
+        self.go_down = False
+        self.ship.change_x = 0
+        self.ship.change_y = 0
         
         # self.asteroids = arcade.SpriteList()
         # self.asteroids.append(self.big_asteroid)
@@ -95,15 +95,16 @@ class window(arcade.Window):
         if self.go_right == True:
             # self.ship.center_x += self.ship.acceleration * delta_time
             self.ship.turn_right(self.rotate_speed)
-        if self.ship.go_up == True:
+        if self.go_up == True:
             # self.ship.center_y += self.ship.acceleration * delta_time
             self.ship.strafe(self.ship.speed)
-        if self.ship.go_down == True:
+        if self.go_down == True:
             # self.ship.center_y -= self.ship.acceleration * delta_time
             pass
         
         self.sprites.update()
-        
+        # ASTEROIDS_CLONE/SPRITES/ship.png
+        # /Users/uni/Documents/ADSAI_HUB/ASTEROIDS_CLONE/SPRITES/ship.png
 
 
     def on_key_press(self, key, modifiers):
@@ -117,18 +118,18 @@ class window(arcade.Window):
             self.go_right = True
         
         if key == arcade.key.W:
-            self.ship.go_up = True
+            self.go_up = True
             
         
         if key == arcade.key.S:
-            self.ship.go_down = True
+            self.go_down = True
     
     def on_key_release(self, key, modifiers):
         if key == arcade.key.W:
-            self.ship.go_up = False
+            self.go_up = False
         
         if key == arcade.key.S:
-            self.ship.go_down = False
+            self.go_down = False
 
         if key == arcade.key.A:
             self.go_left = False
