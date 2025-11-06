@@ -2,11 +2,11 @@ import arcade
 import math
 from pathlib import Path
 
-class window(arcade.Window):
-    def __init__(self, width, height, title):
-        super().__init__(width, height, title, update_rate=1/60)
-        self.set_location(200, 100)
-        arcade.set_background_color(arcade.color.BLACK)
+class GameView(arcade.View):
+    def __init__(self):
+        super().__init__()
+        self.score_text = arcade.Text("Score: 0", 10, 10, arcade.color.WHITE, 14)
+        self.window.background_color = arcade.color.BLACK
 
         # self properties
         self.ship_angle = 0.0
@@ -161,7 +161,13 @@ class window(arcade.Window):
         if key == arcade.key.D:
             self.go_right = False
         
+def main():
+    main_window  = arcade.Window(800, 600, 'Asteroids Clone')
+    # self.set_location(200, 100)
+    game_view = GameView()
+    main_window.show_view(game_view)
+    game_view.setup()
+    arcade.run()
 
-
-mainWindow = window(800, 600, 'Asteroids Clone')
-arcade.run()
+if __name__ == "__main__":
+    main()
