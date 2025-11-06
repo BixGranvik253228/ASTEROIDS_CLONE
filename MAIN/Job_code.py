@@ -1,6 +1,6 @@
 import arcade
 
-screenSize =arcade.get_display_size()
+screenSize = arcade.get_display_size()
 
 class GameWindow(arcade.Window):
     def __init__(self, width, height, title):
@@ -14,7 +14,11 @@ class GameWindow(arcade.Window):
     
     def on_draw(self):
         self.clear()
-        arcade.set_background_color(arcade.color.AMAZON)
+        arcade.set_background_color(arcade.color.BLACK)
+        xText = int(screenSize[0] / 2)
+        yText = int((screenSize[1] / 2) + 500)
+        arcade.Text("Play", xText, yText, (255, 255, 255), 12,)
+
 
 GameWindow(800, 600, 'Test Window')
 arcade.run()
