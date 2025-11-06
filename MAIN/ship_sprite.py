@@ -21,8 +21,15 @@ class window(arcade.Window):
         # ship_path = Path('../SPRITES/ship.png')
         # self.ship = arcade.Sprite("./ship.png")
         # self.ship_test = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
-        ship_path = (Path(__file__).parent/'ship.png').resolve()
-        self.ship = arcade.Sprite(ship_path)
+        ship_path = (Path(__file__).parent/'ship.png').resolve() # I don't understand this
+        self.ship = arcade.Sprite(str(ship_path))
+
+        self.ship.center_x = self.ship_x
+        self.ship.center_y = self.ship_y
+        self.ship.angle = self.ship_angle
+
+        self.sprites = arcade.SpriteList()
+        self.sprites.append(self.ship)
         
         
         
@@ -42,7 +49,7 @@ class window(arcade.Window):
         # )
 
         # self.ship.draw()
-        self.ship.draw()
+        self.sprites.draw()
 
 
 
