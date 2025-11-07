@@ -180,6 +180,11 @@ class DeathView(arcade.View):
             game_view = GameView()
             game_view.setup()
             self.window.show_view(game_view)
+        
+        if key == arcade.key.ESCAPE:
+            game_view = StartWindow()
+            game_view.setup()
+            self.window.show_view(game_view)
 
     def setup(self):
         pass
