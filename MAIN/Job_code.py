@@ -54,7 +54,6 @@ class StartWindow(arcade.View):
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
-        self.score_text = arcade.Text("Score: 0", 10, 10, arcade.color.WHITE, 14)
         self.window.background_color = arcade.color.BLACK
         self.ship_new = arcade.load_texture(":resources:images/space_shooter/playerShip1_green.png")
         self.ship_new = self.ship_new.rotate_90()
@@ -75,11 +74,8 @@ class GameView(arcade.View):
         self.ship.change_x = 0
         self.ship.change_y = 0
         self.ship.scale = (0.5, 0.5)
-        self.ship.drag = 0.95
+        self.ship.drag = 0.000001
         self.ship.rotate_speed = 360
-        
-    def bullets_func(self):
-        print('')
 
     def on_draw(self):
         self.clear()
@@ -108,10 +104,13 @@ class GameView(arcade.View):
 
         self.ship.speed *= self.ship.drag
         self.sprites.update()
+    
+    def bullets_func(self):
+        print('Fire')
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.SPACE:
-            self.bullets_func()
+            print("Fire")
         if key == arcade.key.A:
             self.go_left = True
         if key == arcade.key.D:
@@ -120,7 +119,7 @@ class GameView(arcade.View):
             self.go_up = True
         if key == arcade.key.S:
             self.go_down = True
-        
+
         if key == arcade.key.L:
             game_view = DeathView()
             game_view.setup()
@@ -196,3 +195,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+

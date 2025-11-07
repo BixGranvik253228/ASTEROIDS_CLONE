@@ -1,7 +1,55 @@
 import arcade
 import math
-from pathlib import Path
+import pathlib as path
 import random
+
+screenSize = arcade.get_display_size()
+arcade.load_font(':resources:/fonts/ttf/Kenney/Kenney_Pixel_Square.ttf')
+GameScore = 0
+
+class StartWindow(arcade.View):
+    def __init__(self):
+        super().__init__()
+        self.window.background_color = arcade.color.BLACK
+
+
+        self.title_name = arcade.Text(
+            text="ASTEROIDS",
+            x=800 / 2,
+            y=350,
+            color=arcade.color.WHITE,
+            font_size=40, font_name= 'Kenney Pixel Square',
+            anchor_x="center", 
+            anchor_y="center"
+        )
+
+        self.start_button = arcade.Text(
+            text="Press 'P' to play",
+            x=800 / 2,
+            y=290,
+            color=arcade.color.WHITE, 
+            font_size=13, font_name= 'Kenney Pixel Square',
+            anchor_x="center", 
+            anchor_y="center"
+        )
+
+        
+        self.game_startable = True      
+            
+
+    def on_draw(self):
+        self.window.clear(arcade.color.BLACK)
+        self.title_name.draw()
+        self.start_button.draw()
+    
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.P:
+            game_view = GameView()
+            game_view.setup()
+            self.window.show_view(game_view)
+    
+    def setup(self):
+        pass
 
 class GameView(arcade.View):
     def __init__(self):
@@ -28,10 +76,6 @@ class GameView(arcade.View):
         self.ship.scale = (0.5, 0.5)
         self.ship.drag = 0.000001
         self.ship.rotate_speed = 360
-        
-        
-    
-    
 
     def on_draw(self):
         self.clear()
@@ -60,6 +104,9 @@ class GameView(arcade.View):
 
         self.ship.speed *= self.ship.drag
         self.sprites.update()
+    
+    def bullets_func(self):
+        print('Fire')
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.SPACE:
@@ -72,6 +119,11 @@ class GameView(arcade.View):
             self.go_up = True
         if key == arcade.key.S:
             self.go_down = True
+
+        if key == arcade.key.L:
+            game_view = DeathView()
+            game_view.setup()
+            self.window.show_view(game_view)
     
     def on_key_release(self, key, modifiers):
         if key == arcade.key.W:
@@ -83,13 +135,67 @@ class GameView(arcade.View):
         if key == arcade.key.D:
             self.go_right = False
         
+class DeathView(arcade.View):
+    def __init__(self):
+        super().__init__()
+
+        self.GameOver = arcade.Text(
+            text= "Game Over",
+            x = 800 / 2,
+            y = 350,
+            color=arcade.color.WHITE,
+            font_size=40, font_name= 'Kenney Pixel Square',
+            anchor_x = "center",
+            anchor_y = "center"
+        )
+
+        self.GameScore = arcade.Text(
+            text= f'Your score: {GameScore}',
+            x = 800 / 2,
+            y = 290,
+            color=arcade.color.WHITE, 
+            font_size=20, font_name= 'Kenney Pixel Square',
+            anchor_x="center", 
+            anchor_y="center"
+        )
+
+        self.restartButton = arcade.Text(
+            text= "Press 'R' to Try Again",
+            x = 800 / 2,
+            y = 150,
+            color=arcade.color.WHITE, 
+            font_size=20, font_name= 'Kenney Pixel Square',
+            anchor_x="center", 
+            anchor_y="center"
+        )
+
+    def on_draw(self):
+        self.window.clear(arcade.color.BLACK)
+        self.GameOver.draw()
+        self.GameScore.draw()
+        self.restartButton.draw()
+
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.R:
+            game_view = GameView()
+            game_view.setup()
+            self.window.show_view(game_view)
+
+    def setup(self):
+        pass
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        pass
+
 def main():
-    main_window  = arcade.Window(800, 600, 'Asteroids Clone', update_rate=1/60)
-    # self.set_location(200, 100)
-    game_view = GameView()
-    main_window.show_view(game_view)
-    game_view.setup()
+    main_window = arcade.Window(800, 600, "Asteroids Clone")
+    start_view = StartWindow()
+    main_window.show_view(start_view)
     arcade.run()
 
 if __name__ == "__main__":
     main()
+
+
+
+
