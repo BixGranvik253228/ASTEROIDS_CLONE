@@ -26,7 +26,7 @@ class GameView(arcade.View):
         self.ship.change_x = 0
         self.ship.change_y = 0
         self.ship.scale = (0.5, 0.5)
-        self.ship.drag = 0.000001
+        self.ship.drag = 0.9
         self.ship.rotate_speed = 360
         
         
