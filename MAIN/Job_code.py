@@ -48,6 +48,9 @@ class StartWindow(arcade.View):
             game_view.setup()
             self.window.show_view(game_view)
     
+    def setup(self):
+        pass
+
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
@@ -75,16 +78,8 @@ class GameView(arcade.View):
         self.ship.drag = 0.95
         self.ship.rotate_speed = 360
         
-        
-    def asteroids_func(self):
-        self.as_angle = random.randint(0, 360)
-
-        self.big_as = arcade.Sprite(":resources:/images/space_shooter/meteorGrey_big1.png")
-        self.asteroids = arcade.SpriteList()
-        self.asteroids.append(self.big_as)
-
     def bullets_func(self):
-        pass
+        print('')
 
     def on_draw(self):
         self.clear()
@@ -116,7 +111,7 @@ class GameView(arcade.View):
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.SPACE:
-            print("Fire")
+            self.bullets_func()
         if key == arcade.key.A:
             self.go_left = True
         if key == arcade.key.D:
@@ -166,7 +161,7 @@ class DeathView(arcade.View):
         )
 
         self.restartButton = arcade.Text(
-            text= "Try Again",
+            text= "Press 'R' to Try Again",
             x = 800 / 2,
             y = 150,
             color=arcade.color.WHITE, 
@@ -181,17 +176,9 @@ class DeathView(arcade.View):
         self.GameScore.draw()
         self.restartButton.draw()
 
-        arcade.draw_lbwh_rectangle_outline(
-            self.restartButton.x - self.restartButton.content_width / 2,
-            self.restartButton.y - self.restartButton.content_height / 2,
-            self.restartButton.content_width,
-            self.restartButton.content_height,
-            arcade.color.RED
-        )
-
     def on_key_press(self, key, modifiers):
         if key == arcade.key.R:
-            game_view = StartWindow()
+            game_view = GameView()
             game_view.setup()
             self.window.show_view(game_view)
 
