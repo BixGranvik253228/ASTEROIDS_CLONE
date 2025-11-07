@@ -17,12 +17,18 @@ class GameView(arcade.View):
         self.rotate_speed = 360
         self.ship_acceleration = 10
 
+
         # ship_path = Path('../SPRITES/ship.png')
         # self.ship = arcade.Sprite("./ship.png")
         # self.ship = arcade.Sprite(":resources:images/space_shooter/playerShip1_green.png")
         # ship_path = str(Path(__file__).parent/'ship.png') # I don't understand this
-        ship_path = "ASTEROIDS_CLONE/SPRITES/ship_right.png"
-        self.ship = arcade.Sprite(ship_path)
+        # ship_path = "ASTEROIDS_CLONE/SPRITES/ship_right.png"
+        # self.ship = arcade.Sprite(ship_path)
+
+
+        self.ship_new = arcade.load_texture(":resources:images/space_shooter/playerShip1_green.png")
+        self.ship_new = self.ship_new.rotate_90()
+        self.ship = arcade.Sprite(self.ship_new)
 
 
         self.sprites = arcade.SpriteList()
@@ -47,6 +53,7 @@ class GameView(arcade.View):
         self.ship.change_x = 0
         self.ship.change_y = 0
         self.ship.scale = (0.5, 0.5)
+        self.ship.drag = 0.99
         
         # self.asteroids = arcade.SpriteList()
         # self.asteroids.append(self.big_asteroid)
@@ -92,24 +99,27 @@ class GameView(arcade.View):
         # self.ship_speed *= 0.99
 
     def on_update(self, delta_time):
-        if self.go_left == True:
+        if self.go_left:
             # self.ship.center_x -= self.ship.acceleration * delta_time
             # self.ship.turn_left(self.rotate_speed)
             self.ship.angle -= self.rotate_speed * delta_time
-        if self.go_right == True:
+        if self.go_right:
             # self.ship.center_x += self.ship.acceleration * delta_time
             # self.ship.turn_right(self.rotate_speed)
             self.ship.angle += self.rotate_speed * delta_time
-        if self.go_up == True:
+
+        if self.go_up:
             # self.ship.center_y += self.ship.acceleration * delta_time
             # self.ship.strafe(self.ship.speed)
             # self.ship.center_y += math.sin(math.radians(self.ship.angle)) * self.ship.speed * delta_time
             
             # self.ship.change_x += math.cos(math.radians(self.ship.angle)) * self.ship.speed * delta_time
+
+        
             self.ship.change_x += math.cos(math.radians(self.ship.angle)) * self.ship.acceleration * delta_time
             self.ship.change_y -= math.sin(math.radians(self.ship.angle)) * self.ship.acceleration * delta_time
 
-        if self.go_down == True:
+        if self.go_down:
             # self.ship.center_y -= self.ship.acceleration * delta_time
             pass
 
@@ -127,7 +137,7 @@ class GameView(arcade.View):
         # self.ship.speed *= 0.99
         # self.ship.change_x *= 0.99
         # self.ship.change_y *= 0.99
-
+        self.ship.speed *= self.ship.drag
         self.sprites.update()
         # ASTEROIDS_CLONE/SPRITES/ship.png
         # /Users/uni/Documents/ADSAI_HUB/ASTEROIDS_CLONE/SPRITES/ship.png
