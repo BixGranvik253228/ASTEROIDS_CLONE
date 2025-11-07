@@ -3,60 +3,9 @@ import math
 from pathlib import Path
 import random
 
-class Asteroid(arcade.Sprite):
-    def __init__(self):
-        super().__init__()
-
-    def setup(self):
-        self.as_angle = random.randint(0, 360)
-        self.as_direction = random.randint (0, 360)
-
-        
-
-
-        self.asteroid.big = arcade.Sprite(":resources:/images/space_shooter/meteorGrey_big1.png")
-        self.asteroid.med = arcade.Sprite(":resources:/images/space_shooter/meteorGrey_med1.png")
-        self.asteroid.small = arcade.Sprite(":resources:/images/space_shooter/meteorGrey_small1.png")
-        self.asteroids = arcade.SpriteList()
-        self.asteroids.append(self.asteroid.big)
-        self.asteroids.append(self.asteroid.med)
-        self.asteroids.append(self.asteroid.small)
-
-        for i in 
-
-    def on_draw(self):
-        self.clear()
-        self.asteroids.draw()
-
-    def on_update(self, delta_time):
-        #delta_time
-            asteroid_placement_num = random.randint(0, 3)
-
-            if asteroid_placement_num == 0:
-                self.asteroid_x = -50
-                self.asteroid_y = random.randint(0, self.height)
-            if asteroid_placement_num == 1:
-                self.asteroid_x = (self.width + 50)
-                self.asteroid_y = random.randint(0, self.height)
-            if asteroid_placement_num == 2:
-                self.asteroid_x = random.randint(0, self.width)
-                self.asteroid_y = self.height + 50
-            if asteroid_placement_num == 3:
-                self.asteroid_x = random.randint(0, self.width)
-                self.asteroid_y = -50
-        
-        for i in range(0, len(self.asteroids)):
-            self.asteroid_x
-        self.asteroids.update()
-
-
-
-
-
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
-        self.score_text = arcade.Text("Score: 0", 10, 10, arcade.color.WHITE, 14)
         self.window.background_color = arcade.color.BLACK
         self.ship_new = arcade.load_texture(":resources:images/space_shooter/playerShip1_green.png")
         self.ship_new = self.ship_new.rotate_90()
@@ -77,7 +26,7 @@ class GameView(arcade.View):
         self.ship.change_x = 0
         self.ship.change_y = 0
         self.ship.scale = (0.5, 0.5)
-        self.ship.drag = 0.95
+        self.ship.drag = 0.000001
         self.ship.rotate_speed = 360
         
         
