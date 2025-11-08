@@ -74,7 +74,7 @@ class GameView(arcade.View):
         self.ship.change_x = 0
         self.ship.change_y = 0
         self.ship.scale = (0.5, 0.5)
-        self.ship.drag = 0.000001
+        self.ship.drag = 0.9
         self.ship.rotate_speed = 360
 
     def on_draw(self):
@@ -169,15 +169,31 @@ class DeathView(arcade.View):
             anchor_y="center"
         )
 
+        self.mainMenuGo = arcade.Text(
+            text="Or 'ESC' to go back to the main menu",
+            x = 800 / 2,
+            y = 125,
+            color=arcade.color.WHITE, 
+            font_size=10, font_name= 'Kenney Pixel Square',
+            anchor_x="center", 
+            anchor_y="center"
+        )
+
     def on_draw(self):
         self.window.clear(arcade.color.BLACK)
         self.GameOver.draw()
         self.GameScore.draw()
         self.restartButton.draw()
+        self.mainMenuGo.draw()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.R:
             game_view = GameView()
+            game_view.setup()
+            self.window.show_view(game_view)
+        
+        if key == arcade.key.ESCAPE:
+            game_view = StartWindow()
             game_view.setup()
             self.window.show_view(game_view)
 
@@ -195,7 +211,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
